@@ -1,38 +1,54 @@
 package guru.springframework.sfgpetclinic.services.map;
 
-import guru.springframework.sfgpetclinic.services.CrudService;
-
+import guru.springframework.sfgpetclinic.model.BaseEntity;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class AbstractMapService<T,ID> implements CrudService<T,ID> {
-    protected Map<ID,T> map = new HashMap<>();
+public abstract class AbstractMapService <T extends BaseEntity , ID extends Long > {
 
-    @Override
+    protected Map<Long,T> map = new HashMap<>();
+
+
     public Set<T> findAll(){
         return new HashSet<>(map.values());
     }
 
-    @Override
+
     public T findById(ID id){
         return map.get(id);
     }
 
-    @Override
-    public T save(T object, ID id){
-       return map.put(id,object);
+
+    public T save(T object){
+        if (object == null){
+            throw new RuntimeException("object cannot be null");
+        }
+        if (object.getId() == null){
+            object.setId(getNextId());
+        }
+       return map.put(object.getId(),object);
     }
 
-    @Override
+
     public void deleteById(ID id){
         map.remove(id);
     }
 
-    @Override
+
     public void delete(T object){
         map.entrySet().removeIf(entry -> entry.getValue().equals(object));
+    }
+
+    private Long getNextId(){
+        Long nextId = null;
+        if (map.size()==0){
+            nextId = 1L;
+        }else {
+            nextId = map.size() + 1L;
+        }
+        return nextId;
     }
 
 }
