@@ -21,12 +21,6 @@ public class OwnerController {
 
     @RequestMapping({"","/","/index","/index.html"})
     public String listVets(Model model){
-        Set<Owner> list = new HashSet<>();
-        Owner owner1 = new Owner();
-        owner1.setFirstName("toto");
-        list.add(owner1);
-        System.out.println(ownerService.findAll().size());
-        System.out.println(ownerService.findById(1L).getFirstName());
         model.addAttribute("owners", ownerService.findAll());
         return "owners/index";
     }
