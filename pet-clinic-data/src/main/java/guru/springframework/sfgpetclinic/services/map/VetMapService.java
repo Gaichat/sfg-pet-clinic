@@ -15,7 +15,7 @@ public class VetMapService extends AbstractMapService<Vet, Long> implements VetS
         this.specialtyService = specialtyService;
     }
 
-   /* public Vet save (Vet vet){
+    public Vet save (Vet vet){
         if (vet != null){
             if (vet.getSpecialities().size()>0) {
                 vet.getSpecialities().forEach(speciality -> {
@@ -29,5 +29,5 @@ public class VetMapService extends AbstractMapService<Vet, Long> implements VetS
         }else{
             throw new RuntimeException("object cannot be null");
         }
-    }*/
+    }
 }
