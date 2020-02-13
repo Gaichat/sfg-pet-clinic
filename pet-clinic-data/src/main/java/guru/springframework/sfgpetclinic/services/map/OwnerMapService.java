@@ -12,18 +12,17 @@ import org.springframework.stereotype.Service;
 public class OwnerMapService extends AbstractMapService<Owner,Long> implements OwnerService {
 
     private final PetTypeService petTypeService;
-    private final PetMapService petService;
+    private final PetService petService;
 
-    public OwnerMapService(PetTypeService petTypeService1, PetMapService petService1) {
-        this.petTypeService = petTypeService1;
-        this.petService = petService1;
+    public OwnerMapService(PetTypeService petTypeService, PetService petService) {
+        this.petTypeService = petTypeService;
+        this.petService = petService;
     }
 
 
     @Override
     public Owner findByLastName(String lastName) {
-        //TO-DO
-       return null;
+       return findAll().stream().filter(s -> lastName.equals(s.getLastName())).findFirst().orElse(null);
     }
 
     @Override
