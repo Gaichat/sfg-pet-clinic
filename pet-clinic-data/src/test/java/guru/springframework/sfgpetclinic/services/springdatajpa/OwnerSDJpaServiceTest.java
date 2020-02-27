@@ -67,10 +67,9 @@ class OwnerSDJpaServiceTest {
         Set<Owner> owners = new HashSet<>();
         owners.add(returnOwner);
         when(ownerRepository.findAll()).thenReturn(owners);
-        Owner foundOwner = ownerSDJpaService.findById(1L);
+        Set<Owner> foundOwner = ownerSDJpaService.findAll();
         assertNotNull(foundOwner);
-        assertEquals(1L,foundOwner.getId());
-        verify(ownerRepository).findById(any());
+        verify(ownerRepository).findAll();
     }
 
     @Test
